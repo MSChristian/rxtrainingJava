@@ -1,6 +1,8 @@
 package tech.christianms.rxtraining.controllers;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.messaging.simp.annotation.SubscribeMapping;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,15 +17,13 @@ import tech.christianms.rxtraining.domain.model.LookDocument;
 import tech.christianms.rxtraining.dto.LookDto;
 import tech.christianms.rxtraining.services.LooksService;
 
-@RestController
-@RequestMapping("looks")
+@Controller
 @RequiredArgsConstructor
 public class LooksController {
 
     private final LooksService looksService;
 
-    @GetMapping
-    @ResponseBody
+    @SubscribeMapping("/looks")
     public Flux<LookDocument> getAllLooks() {
         return looksService.getAllLooks();
     }
